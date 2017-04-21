@@ -223,78 +223,75 @@ int magicAttack(struct players record[],int no_players,int iteration)/*Problem h
 
 /*Near Attack*/
 int nearAttack(struct players record[],int no_players,int iteration){
-	int i=iteration ;
 	int n=0;
 	int count=0;
 	int j;
-	int arrayA[no_players];//this array will store the players who are close enough for a near attack
+	int arrayB[no_players];//this array will store the players who are close enough for a near attack
 
 	for(j=0;j<no_players;j++){
 		if(record[j].stillPlaying==FALSE)
-						{
-							continue;
-						}
-		
-		
-		 if(((record[i].player_slot->row==record[j].player_slot->row && record[i].player_slot->column==record[j].player_slot->column)\
-				 ||(record[iteration].player_slot->column+1==record[j].player_slot->column && record[iteration].player_slot->row==record[j].player_slot->row ) \
-		 				/* bottom targets  */
-		 				||(record[iteration].player_slot->row+1==record[j].player_slot->row && record[iteration].player_slot->column==record[j].player_slot->column )  \
-		 				/* up targets   */
-		 				||(record[iteration].player_slot->row-1==record[j].player_slot->row && record[iteration].player_slot->column==record[j].player_slot->column )  \
-		 				/* left hand targets */
-		 				||(record[iteration].player_slot->column-1==record[j].player_slot->column && record[iteration].player_slot->row==record[j].player_slot->row ) \
-		 					)	&& iteration !=j  ){
-			arrayA[n]=j;//effectivley stores the player number, if the are close enough for a near attack
-			n++;//increments arrayA=for another target
+		{
+			continue;
+		}
+
+		if(   ( (record[iteration].player_slot->column==record[j].player_slot->column && record[iteration].player_slot->row==record[j].player_slot->row )
+
+				|| (record[iteration].player_slot->column+1==record[j].player_slot->column && record[iteration].player_slot->row==record[j].player_slot->row ) \
+				/* bottom targets  */
+				||(record[iteration].player_slot->row+1==record[j].player_slot->row && record[iteration].player_slot->column==record[j].player_slot->column )  \
+				/* up targets   */
+				||(record[iteration].player_slot->row-1==record[j].player_slot->row && record[iteration].player_slot->column==record[j].player_slot->column )  \
+				/* left hand targets */
+				||(record[iteration].player_slot->column-1==record[j].player_slot->column && record[iteration].player_slot->row==record[j].player_slot->row ) \
+		)	&& iteration !=j  ){
+			arrayB[n]=j;//effectivley stores the player number, if the are close enough for a distant attack
+			n++;//increments arrayB=for another target
 			count++;//used sort of like a boolean value,c doesnt really support boolean so im using count instead.
+
+
 		}
 	}
-
 	if(count==0){
 		printf("There is no opponent close enough for a near attack, Please choose another option\n");
-		return i-1;//restarts turn
+		return iteration-1;//restarts turn	else{
 	}
-	else{
-		if(count==1){
-			printf("There was only one possible target to attack, You attacked: %s\n",record[arrayA[0]].name);
+	if(count==1){
+		printf("There was only one possible target to attack, You attacked: %s\n",record[arrayB[0]].name);
 
-			if(record[arrayA[0]].strength<=70){
-				record[arrayA[0]].lifePoints=record[arrayA[0]].lifePoints-(record[i].strength*0.5);
-			}
-			else{
-				record[i].lifePoints = record[i].lifePoints - (0.3*record[arrayA[0]].strength);
+		if(record[arrayB[0]].strength<=70){
+			record[arrayB[0]].lifePoints=record[arrayB[0]].lifePoints-(record[iteration].strength*0.5);
+		}
+		else{
+			record[iteration].lifePoints = record[iteration].lifePoints - (0.3*record[arrayB[0]].strength);
 
-			}
-
-			return iteration ;//will carry this attack out as there is only one target to hit so theres no choice, it will then finish this players turn
 		}
 
-		if(count >1){
-
-			printf("there is more than one target legible for a near attack, please chose one\n");
-			printf("please select a target\n");
-			for(j=0;j<count;j++){//will print out all possible targets that are currently in the arrayA
-				printf("Press %d to attack: %s\n",j+1,record[arrayA[j]].name);
-			}
-
-			scanf("%d",&j);
-			j=j-1;//same as in magic attack
-			if(record[arrayA[j]].strength<=70){
-				record[arrayA[j]].lifePoints=record[arrayA[j]].lifePoints-(record[i].strength*0.5);
-			}
-			else if(record[arrayA[j]].strength>70){
-				record[i].lifePoints = record[i].lifePoints - (0.3*record[arrayA[j]].strength);
-
-			}
-
-			return iteration ;//ends current players turn
-		}
-
+		return iteration ;//will carry this attack out as there is only one target to hit so theres no choice, it will then finish this players turn
 	}
 
-	return iteration -1;
+	if(count >1){
+
+		printf("there is more than one target legible for a near attack, please chose one\n");
+		printf("please select a target\n");
+		for(j=0;j<count;j++){//will print out all possible targets that are currently in the arrayA
+			printf("Press %d to attack: %s\n",j+1,record[arrayB[j]].name);
+		}
+
+		scanf("%d",&j);
+		j=j-1;//same as in magic attack
+		if(record[arrayB[j]].strength<=70){
+			record[arrayB[j]].lifePoints=record[arrayB[j]].lifePoints-(record[iteration].strength*0.5);
+		}
+		else if(record[arrayB[j]].strength>70){
+			record[iteration].lifePoints = record[iteration].lifePoints - (0.3*record[arrayB[j]].strength);
+
+		}
+
+		return iteration ;//ends current players turn
+	}
+	return iteration-1;
 }
+
 
 
 int DistantAttack(struct players record[],int no_players,int iteration)
