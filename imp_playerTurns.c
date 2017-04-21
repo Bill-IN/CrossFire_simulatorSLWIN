@@ -235,7 +235,11 @@ int nearAttack(struct players record[],int no_players,int iteration){
 							continue;
 						}
 		
-		if((record[i].player_slot==record[j].player_slot  || record[j].player_slot==record[i].player_slot->right || record[j].player_slot==record[i].player_slot->left || record[j].player_slot==record[i].player_slot->up || record[j].player_slot==record[i].player_slot->down) && i !=j  ){
+		if(((( record[i].player_slot->row==record[j].player_slot->row && record[i].player_slot->column==record[j].player_slot->column )  ||
+				(record[j].player_slot->row==record[i].player_slot->right->row && record[i].player_slot->right->column==record[j].player_slot->column)
+				|| (record[j].player_slot->row==record[i].player_slot->left->row && record[i].player_slot->left->column==record[j].player_slot->column)
+				|| (record[j].player_slot->row==record[i].player_slot->up->row && record[i].player_slot->up->column==record[j].player_slot->column)
+				|| (record[j].player_slot->row==record[i].player_slot->down->row && record[i].player_slot->up->column==record[j].player_slot->column))&&i!=j)){
 			arrayA[n]=j;//effectivley stores the player number, if the are close enough for a near attack
 			n++;//increments arrayA=for another target
 			count++;//used sort of like a boolean value,c doesnt really support boolean so im using count instead.
