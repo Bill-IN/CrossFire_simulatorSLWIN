@@ -236,11 +236,15 @@ int nearAttack(struct players record[],int no_players,int iteration){
 						}
 		
 		
-		if((( record[i].player_slot->row==record[j].player_slot->row && record[i].player_slot->column==record[j].player_slot->column )  ||
-				(record[j].player_slot->row==record[i].player_slot->row+1 && record[i].player_slot->column==record[j].player_slot->column)
-				|| (record[j].player_slot->row==record[i].player_slot->row-1 && record[i].player_slot->column==record[j].player_slot->column)
-				|| (record[j].player_slot->row==record[i].player_slot->row && record[i].player_slot->column+1==record[j].player_slot->column)
-				|| (record[j].player_slot->row==record[i].player_slot->row && record[i].player_slot->column-1==record[j].player_slot->column))&&i!=j){
+		 if(((record[i].player_slot->row==record[j].player_slot->row && record[i].player_slot->column==record[j].player_slot->column)\
+				 ||(record[iteration].player_slot->column+1==record[j].player_slot->column && record[iteration].player_slot->row==record[j].player_slot->row ) \
+		 				/* bottom targets  */
+		 				||(record[iteration].player_slot->row+1==record[j].player_slot->row && record[iteration].player_slot->column==record[j].player_slot->column )  \
+		 				/* up targets   */
+		 				||(record[iteration].player_slot->row-1==record[j].player_slot->row && record[iteration].player_slot->column==record[j].player_slot->column )  \
+		 				/* left hand targets */
+		 				||(record[iteration].player_slot->column-1==record[j].player_slot->column && record[iteration].player_slot->row==record[j].player_slot->row ) \
+		 					)	&& iteration !=j  ){
 			arrayA[n]=j;//effectivley stores the player number, if the are close enough for a near attack
 			n++;//increments arrayA=for another target
 			count++;//used sort of like a boolean value,c doesnt really support boolean so im using count instead.
