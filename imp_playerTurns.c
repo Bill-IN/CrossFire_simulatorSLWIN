@@ -235,9 +235,10 @@ int nearAttack(struct players record[],int no_players,int iteration){
 							continue;
 						}
 		
+		
 		if((( record[i].player_slot->row==record[j].player_slot->row && record[i].player_slot->column==record[j].player_slot->column )  ||
-				(record[j].player_slot->row==record[i].player_slot->row+1 && record[i].player_slot->right->column==record[j].player_slot->column)
-				|| (record[j].player_slot->row==record[i].player_slot->row-1 && record[i].player_slot->left->column==record[j].player_slot->column)
+				(record[j].player_slot->row==record[i].player_slot->row+1 && record[i].player_slot->column==record[j].player_slot->column)
+				|| (record[j].player_slot->row==record[i].player_slot->row-1 && record[i].player_slot->column==record[j].player_slot->column)
 				|| (record[j].player_slot->row==record[i].player_slot->row && record[i].player_slot->column+1==record[j].player_slot->column)
 				|| (record[j].player_slot->row==record[i].player_slot->row && record[i].player_slot->column-1==record[j].player_slot->column))&&i!=j){
 			arrayA[n]=j;//effectivley stores the player number, if the are close enough for a near attack
