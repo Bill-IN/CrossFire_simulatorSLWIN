@@ -230,7 +230,7 @@ int nearAttack(struct players record[],int no_players,int iteration){
 	int arrayA[no_players];//this array will store the players who are close enough for a near attack
 
 	for(j=0;j<no_players;j++){
-		if(record[i].stillPlaying==FALSE)
+		if(record[j].stillPlaying==FALSE)
 						{
 							continue;
 						}
@@ -298,7 +298,7 @@ int DistantAttack(struct players record[],int no_players,int iteration)
 
 	for(j=0;j<no_players;j++){
 		
-		if(record[iteration].stillPlaying==FALSE)
+		if(record[j].stillPlaying==FALSE)
 						{
 							continue;
 						}
