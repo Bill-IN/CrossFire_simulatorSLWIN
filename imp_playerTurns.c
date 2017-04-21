@@ -230,6 +230,11 @@ int nearAttack(struct players record[],int no_players,int iteration){
 	int arrayA[no_players];//this array will store the players who are close enough for a near attack
 
 	for(j=0;j<no_players;j++){
+		if(record[i].stillPlaying==FALSE)
+						{
+							continue;
+						}
+		
 		if((record[i].player_slot==record[j].player_slot  || record[j].player_slot==record[i].player_slot->right || record[j].player_slot==record[i].player_slot->left || record[j].player_slot==record[i].player_slot->up || record[j].player_slot==record[i].player_slot->down) && i !=j  ){
 			arrayA[n]=j;//effectivley stores the player number, if the are close enough for a near attack
 			n++;//increments arrayA=for another target
@@ -292,6 +297,12 @@ int DistantAttack(struct players record[],int no_players,int iteration)
 	int arrayB[no_players];//this array will store the players who are close enough for a near attack
 
 	for(j=0;j<no_players;j++){
+		
+		if(record[iteration].stillPlaying==FALSE)
+						{
+							continue;
+						}
+		
 		if(   ( (record[iteration].player_slot->column+2==record[j].player_slot->column && record[iteration].player_slot->row==record[j].player_slot->row ) \
 				||(record[iteration].player_slot->column+4==record[j].player_slot->column && record[iteration].player_slot->row==record[j].player_slot->row ) \
 				|| (record[iteration].player_slot->column+3==record[j].player_slot->column && record[iteration].player_slot->row==record[j].player_slot->row ) \
